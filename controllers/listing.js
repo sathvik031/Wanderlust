@@ -40,12 +40,10 @@ module.exports.createListing = async (req, res, next) => {
         limit: 1,
     })
     .send();
-
     let url = req.file.path;
     let filename = req.file.filename;
-
     const newListing = new Listing(req.body.listing);
-    // console.log(req.user);
+    console.log(req.user);
     newListing.owner = req.user._id;
     newListing.image = { url, filename };
 
@@ -54,7 +52,7 @@ module.exports.createListing = async (req, res, next) => {
     let savedListing =  await newListing.save();
     console.log(savedListing);
     req.flash("success", "New listing created!");
-    res.redirect("/listings");
+    res.redirect("/listings")
 };
 
 module.exports.renderEditForm = async (req, res) => {
